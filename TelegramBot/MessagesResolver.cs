@@ -16,7 +16,7 @@ namespace AdminGroupBot.TelegramBot
             new DeleteMessageHandler()
         };
 
-        public async Task Resolve(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+        public async Task Resolve(ITelegramBotClient botClient, Update update)
         {
             if (update.Message is not { } message) return;
 

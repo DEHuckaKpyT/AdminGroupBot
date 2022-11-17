@@ -50,7 +50,7 @@ namespace AdminGroupBot.TelegramBot
 
         async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
-            await resolver.Resolve(botClient, update, cancellationToken);
+            await resolver.Resolve(botClient, update);
         }
 
         Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
