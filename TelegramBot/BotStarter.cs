@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Telegram.Bot.Exceptions;
+﻿using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types;
 using Telegram.Bot;
 using NLog;
+using AdminGroupBot.Configuration;
 
 namespace AdminGroupBot.TelegramBot
 {
@@ -17,7 +13,7 @@ namespace AdminGroupBot.TelegramBot
         private readonly Logger logger = LogManager.GetCurrentClassLogger();
         private readonly MessagesResolver resolver = new MessagesResolver();
 
-        private readonly ITelegramBotClient botClient = new TelegramBotClient("5238202878:AAED_7vuofY30YpGwP1DKxNbwc9h5vS6H2I");
+        private readonly ITelegramBotClient botClient = new TelegramBotClient(Config.EnvironmentVariables["TELEGRAM_BOT_TOKEN"]);
         private readonly CancellationTokenSource cancellation = new CancellationTokenSource();
         private readonly ReceiverOptions receiverOptions = new ReceiverOptions
         {

@@ -1,5 +1,4 @@
-﻿using AdminGroupBot.Config;
-using AdminGroupBot.TelegramBot;
+﻿using AdminGroupBot.TelegramBot;
 using NLog;
 
 
@@ -11,12 +10,10 @@ internal class Program
     public static void Main(string[] args)
     {
         logger.Info("Starting program.");
-        List<string> messagePatterns = AppConfig.Bot.MessagePatterns;
 
         bot.StartBot();
 
         Console.ReadKey();
-
         bot.StopBot();
     }
 }

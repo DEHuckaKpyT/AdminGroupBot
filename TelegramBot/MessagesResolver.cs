@@ -1,9 +1,4 @@
 ﻿using AdminGroupBot.TelegramBot.Handler;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot;
 
@@ -13,6 +8,7 @@ namespace AdminGroupBot.TelegramBot
     {
         List<IMessageHandler> handlers = new List<IMessageHandler>()
         {
+            // обработчики событий бота
             new DeleteMessageHandler()
         };
 
@@ -22,7 +18,7 @@ namespace AdminGroupBot.TelegramBot
 
             foreach (IMessageHandler handler in handlers)
             {
-                if (handler.IsMustBeExecute(update))
+                if (handler.IsMustBeExecuted(update))
                 {
                     await handler.Execute(message.Chat.Id, update, botClient);
                 }
