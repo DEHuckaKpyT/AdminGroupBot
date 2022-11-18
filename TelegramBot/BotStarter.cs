@@ -12,7 +12,7 @@ using NLog;
 
 namespace AdminGroupBot.TelegramBot
 {
-    internal class BotConfig
+    internal class BotStarter
     {
         private readonly Logger logger = LogManager.GetCurrentClassLogger();
         private readonly MessagesResolver resolver = new MessagesResolver();
