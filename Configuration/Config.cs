@@ -3,14 +3,15 @@ using System.Text;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 using dotenv.net;
+using System.Text.RegularExpressions;
 
 namespace AdminGroupBot.Configuration
 {
     internal class Config
     {
-        public static BotConfigModel Bot { get; set; }
+        public static BotConfigModel Bot { get; }
 
-        public static IDictionary<string, string> EnvironmentVariables { get; set; }
+        public static IDictionary<string, string> EnvironmentVariables { get; }
 
         static Config()
         {

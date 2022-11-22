@@ -1,3 +1,9 @@
-﻿message_patterns: 
+﻿white_list_ids:
+ - 1165327523
+
+black_list_ids:
+ - 5712469480
+
+remove_message_patterns: 
  - ".*лох.*"
  - ".*дурак.*"

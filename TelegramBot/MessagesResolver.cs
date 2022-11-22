@@ -9,7 +9,7 @@ namespace AdminGroupBot.TelegramBot
         List<IMessageHandler> handlers = new List<IMessageHandler>()
         {
             // обработчики событий бота
-            new DeleteMessageHandler()
+            new DeleteSupergroupMessageHandler()
         };
 
         public async Task Resolve(ITelegramBotClient botClient, Update update)

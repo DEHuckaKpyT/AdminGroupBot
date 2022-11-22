@@ -1,21 +1,29 @@
-﻿using static AdminGroupBot.Configuration.Config;
+﻿
 using NLog;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 using System.Text.RegularExpressions;
+using AdminGroupBot.Configuration;
 
 namespace AdminGroupBot.TelegramBot.Handler
 {
-    internal class DeleteMessageHandler : IMessageHandler
+    internal class DeleteSupergroupMessageHandler : IMessageHandler
     {
         private readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        private static readonly List<Regex> messageRegexes = Bot.MessagePatterns
+        private static readonly List<Regex> removeMessageRegexes = Config.Bot.RemoveMessagePatterns
             .ConvertAll(pattern => new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase));
 
         public bool IsMustBeExecuted(Update update)
         {
             if (update.Message is not { } message) return false;
+
+            if (message.Chat.Type != ChatType.Supergroup) return false;
+
+            if (Config.Bot.WhiteListIds.Contains(message.From.Id)) return false;
+
+            if (Config.Bot.BlackListIds.Contains(message.From.Id)) return true;
 
             if (message.Text is not { } messageText) return false;
 
@@ -28,13 +36,13 @@ namespace AdminGroupBot.TelegramBot.Handler
         {
             if (update.Message is not { } message) return;
 
-            logger.Info($"deleting message \"{message.Text}\" from @{message.Chat.Username}");
+            logger.Info($"deleting message \"{message.Text}\" from {message.From.FirstName} ({message.From.Id})");
             await botClient.DeleteMessageAsync(chatId, message.MessageId);
         }
 
         private bool IsNotMatchAll(string text)
         {
-            foreach(Regex regex in messageRegexes)
+            foreach (Regex regex in removeMessageRegexes)
             {
                 if (regex.IsMatch(text)) return false;
             }
