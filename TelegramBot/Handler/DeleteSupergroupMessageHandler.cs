@@ -36,8 +36,16 @@ namespace AdminGroupBot.TelegramBot.Handler
         {
             if (update.Message is not { } message) return;
 
-            logger.Info($"deleting message \"{message.Text}\" from {message.From.FirstName} ({message.From.Id})");
-            await botClient.DeleteMessageAsync(chatId, message.MessageId);
+            try
+            {
+                await botClient.DeleteMessageAsync(chatId, message.MessageId);
+                logger.Info($"Message \"{message.Text}\" from {message.From.FirstName} ({message.From.Id}) deleted.");
+            }
+            catch (Exception ex)
+            {
+                logger.Error($"Message \"{message.Text}\" from {message.From.FirstName} ({message.From.Id}) can't be deleted.");
+                logger.Error(ex);
+            }
         }
 
         private bool IsNotMatchAll(string text)
